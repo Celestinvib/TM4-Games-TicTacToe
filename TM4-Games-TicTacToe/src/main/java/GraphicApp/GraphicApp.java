@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 
@@ -28,15 +29,15 @@ public class GraphicApp extends JFrame{
 	private JTextField textFieldPlayer1Name;
 	private JTextField textFieldPlayer2Name;
 	
-	private JButton btn00;
-	private JButton btn01;
-	private JButton btn02;
-	private JButton btn10;
-	private JButton btn11;
-	private JButton btn12;
-	private JButton btn20;
-	private JButton btn21;
-	private JButton btn22;
+	public JButton btn00;
+	public JButton btn01;
+	public JButton btn02;
+	public JButton btn10;
+	public JButton btn11;
+	public JButton btn12;
+	public JButton btn20;
+	public JButton btn21;
+	public JButton btn22;
 	
 	private JLabel lblMovements;
 
@@ -46,7 +47,14 @@ public class GraphicApp extends JFrame{
 	
 	private String nameP1;
 	private String nameP2;
+	
+	private int maxTurns = 3;
+	
+	private int P1Turns = 0;
+	private int P2Turns = 0;
 
+	
+	private boolean turn = true;
 	
 
 	/*Constructor*/
@@ -194,16 +202,13 @@ public class GraphicApp extends JFrame{
 		
 			btn00.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(gameStarted) {
-						btn00.setText("X");
-						movementMade(nameP1);
-//						board.setField([0][0],"X");						
-					}
+					makeMovement(btn00,0,0);
 				}
 			});
 			
 			btn01.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn01,0,1);
 				}
 			});
 			
@@ -260,6 +265,31 @@ public class GraphicApp extends JFrame{
 	
 	public void movementMade(String name) {
 		lblMovements.setText(name+", coloca ficha ...");
+	}
+	
+	
+	public void  makeMovement(JButton btn, int column , int row) {	
+		
+		if(gameStarted) {
+			
+			String tempBoard[][] = board.getField();
+			
+			if(tempBoard[column][row] == null) {
+				if (turn) {
+					btn.setText("X");
+					movementMade(nameP1);
+					tempBoard[column][row] = "X";
+				}else {
+					btn.setText("O");
+					movementMade(nameP2);
+					tempBoard[column][row] = "O";
+				}
+			
+				turn =! turn;		
+				board.setField(tempBoard);	
+				System.out.println("Has asignado");
+			}
+		}
 	}
 	
 }
