@@ -41,9 +41,12 @@ public class GraphicApp extends JFrame{
 	
 	private JLabel lblMovements;
 
-	private Board board;
+	public Board board;
 	
 	private  boolean gameStarted = false;
+	
+	private Player ply1;
+	private Player ply2;
 	
 	private String nameP1;
 	private String nameP2;
@@ -54,7 +57,7 @@ public class GraphicApp extends JFrame{
 	private int P2Turns = 0;
 
 	
-	private boolean turn = true;
+	public boolean turn = true;
 	
 
 	/*Constructor*/
@@ -257,7 +260,8 @@ public class GraphicApp extends JFrame{
 		
 	    nameP1 = textFieldPlayer1Name.getText();
 		
-		Player ply1 = new Player("X",nameP1, "Human");
+		ply1 = new Player("X",nameP1, "Human");
+		ply2 = new Player("0","Marcos", "Human");
 		
 		
 		gameStarted = true;	
@@ -276,13 +280,13 @@ public class GraphicApp extends JFrame{
 			
 			if(tempBoard[column][row] == null) {
 				if (turn) {
-					btn.setText("X");
+					btn.setText(ply1.getToken());
 					movementMade(nameP1);
-					tempBoard[column][row] = "X";
+					tempBoard[column][row] = ply1.getToken();
 				}else {
-					btn.setText("O");
+					btn.setText(ply2.getToken());
 					movementMade(nameP2);
-					tempBoard[column][row] = "O";
+					tempBoard[column][row] = ply2.getToken();
 				}
 			
 				turn =! turn;		
