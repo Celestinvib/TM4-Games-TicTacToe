@@ -287,7 +287,6 @@ public class GraphicApp extends JFrame{
 			
 				turn =! turn;		
 				board.setField(tempBoard);	
-				System.out.println("Has asignado");
 			}
 		}
 	}
