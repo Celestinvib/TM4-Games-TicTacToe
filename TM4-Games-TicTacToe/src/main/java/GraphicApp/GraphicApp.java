@@ -43,7 +43,7 @@ public class GraphicApp extends JFrame{
 
 	private Board board;
 	
-	private static boolean gameStarted = false;
+	private  boolean gameStarted = false;
 	
 	private String nameP1;
 	private String nameP2;
