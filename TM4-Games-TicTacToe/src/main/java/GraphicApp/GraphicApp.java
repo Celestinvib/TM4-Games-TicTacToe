@@ -57,7 +57,7 @@ public class GraphicApp extends JFrame{
 	private int P2Turns = 0;
 
 	
-	public boolean turn = true;
+	public static String turn = "X";
 	
 
 	/*Constructor*/
@@ -205,7 +205,11 @@ public class GraphicApp extends JFrame{
 		
 			btn00.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					makeMovement(btn00,0,0);
+					if(turn == "X" && ) {
+						
+							makeMovement(btn00,0,0);
+						
+					}
 				}
 			});
 			
@@ -279,17 +283,18 @@ public class GraphicApp extends JFrame{
 			String tempBoard[][] = board.getField();
 			
 			if(tempBoard[column][row] == null) {
-				if (turn) {
+				if (turn == "X") {
 					btn.setText(ply1.getToken());
 					movementMade(nameP1);
 					tempBoard[column][row] = ply1.getToken();
+					turn = "Y";
 				}else {
 					btn.setText(ply2.getToken());
 					movementMade(nameP2);
 					tempBoard[column][row] = ply2.getToken();
+					turn = "X";
 				}
 			
-				turn =! turn;		
 				board.setField(tempBoard);	
 			}
 		}
