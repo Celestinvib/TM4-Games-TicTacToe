@@ -41,7 +41,7 @@ public class GraphicApp extends JFrame{
 	
 	private JLabel lblMovements;
 
-	public Board board;
+	public static Board board;
 	
 	private  boolean gameStarted = false;
 	
@@ -53,8 +53,8 @@ public class GraphicApp extends JFrame{
 	
 	private int maxTurns = 3;
 	
-	private int P1Turns = 0;
-	private int P2Turns = 0;
+	private int P1Tokens = 0;
+	private int P2Tokens = 0;
 
 	
 	public static String turn = "X";
@@ -66,7 +66,7 @@ public class GraphicApp extends JFrame{
 		/*Definition of the window */
 		
 		
-		setTitle("Ventana con interaccion");//PopUp window title
+		setTitle("Tres en Raya");//PopUp window title
 		
 		/* X Y coordinates of the application and its height and length */
 		setBounds(700, 200, 812, 419);
@@ -205,11 +205,8 @@ public class GraphicApp extends JFrame{
 		
 			btn00.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(turn == "X" && ) {
-						
-							makeMovement(btn00,0,0);
-						
-					}
+					makeMovement(btn00,0,0);
+					
 				}
 			});
 			
@@ -221,82 +218,133 @@ public class GraphicApp extends JFrame{
 			
 			btn02.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn02,0,2);
 				}
 			});
 			
 			btn10.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				}
-			});
-			
-			btn10.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn10,1,0);
 				}
 			});
 			
 			btn11.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn11,1,1);
+				}
+			});
+			
+			btn12.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn12,1,2);
 				}
 			});
 			
 			btn20.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn20,2,0);
 				}
 			});
 			
 			btn21.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn21,2,1);
 				}
 			});		
 			
 			btn22.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					makeMovement(btn22,2,2);
 				}
 			});	
 	
-		
-		
+			
 	}
 	
 	
 	public void newGame() {	
 		board = new Board();
 		
-	    nameP1 = textFieldPlayer1Name.getText();
-		
+	
 		ply1 = new Player("X",nameP1, "Human");
-		ply2 = new Player("0","Marcos", "Human");
+		ply2 = new Player("0",nameP2, "Human");
+		
+	    nameP1 = textFieldPlayer1Name.getText();
+	    nameP2 = textFieldPlayer1Name.getText();
 		
 		
 		gameStarted = true;	
 	}
 	
+	/**
+	 * Method that updates the movement label with the movement that has been made
+	 * @param name the name of the player that has made the movement
+	 */
 	public void movementMade(String name) {
 		lblMovements.setText(name+", coloca ficha ...");
 	}
 	
-	
+	/**
+	 * Method that check if a movement can be made and if it can , makes it
+	 * @param btn button that has been triggered 
+	 * @param column Column where the button is
+	 * @param row Row where the button is 
+	 */
 	public void  makeMovement(JButton btn, int column , int row) {	
 		
 		if(gameStarted) {
 			
 			String tempBoard[][] = board.getField();
-			
-			if(tempBoard[column][row] == null) {
-				if (turn == "X") {
-					btn.setText(ply1.getToken());
-					movementMade(nameP1);
-					tempBoard[column][row] = ply1.getToken();
-					turn = "Y";
+					
+				if (turn == "X") { 
+					
+					if(P1Tokens < 3 && tempBoard[column][row] == null ) { //If the player haven't put 3 tokens in the board and the field selected is null
+						
+						btn.setText(ply1.getToken()); //The token is put in the board in the eyes of the user
+						tempBoard[column][row] = ply1.getToken();//it's save the position in which it have been put it
+						
+						movementMade(nameP1); //Update the movement label
+						P1Tokens++;//Add a token to the user token counter
+						
+						turn = "Y"; //Change the turn
+					
+					}else if (P1Tokens >= 3 && tempBoard[column][row] == "X") {  //If the player have put 3 tokens in the board and the field selected is one of his tokens
+						
+						btn.setText("");//The token is withdrawn in the board in the eyes of the user
+						tempBoard[column][row] = "";//Clear the position in which it had been put it
+
+						 
+						 movementMade(nameP1); 
+						 P1Tokens--;//Subtract 1 of the token counter
+						 
+						turn = "Y";
+					}
+					
+					
+					
 				}else {
-					btn.setText(ply2.getToken());
-					movementMade(nameP2);
-					tempBoard[column][row] = ply2.getToken();
-					turn = "X";
+					
+					if(P2Tokens < 3 && tempBoard[column][row] == null) {
+						btn.setText(ply2.getToken());
+						tempBoard[column][row] = ply2.getToken();
+						
+						movementMade(nameP2);
+						P2Tokens++;
+						
+						turn = "X";
+						
+					}else if (P2Tokens >= 3 && tempBoard[column][row] == "O") {
+						 tempBoard[column][row] = "";
+						 btn.setText("");
+
+						 movementMade(nameP2);
+						 P2Tokens--;	
+
+						turn = "X";
+					}
 				}
-			
-				board.setField(tempBoard);	
-			}
+				
+				board.setField(tempBoard);	//Update the real board		
 		}
 	}
 	
