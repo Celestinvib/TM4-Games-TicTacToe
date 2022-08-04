@@ -100,7 +100,7 @@ public class GraphicApp extends JFrame{
 		/*Creation, definition of dimensions and added to the panel of the labels*/		
 		lblMovements = new JLabel("");
 		lblMovements.setBackground(new Color(255, 255, 255));
-		lblMovements.setForeground(Color.WHITE);
+		lblMovements.setForeground(SystemColor.textText);
 		lblMovements.setBounds(24, 310, 289, 23);
 		contentPane.add(lblMovements);
 		
@@ -174,7 +174,7 @@ public class GraphicApp extends JFrame{
 		contentPane.add(textFieldPlayer2Name);
 		
 		lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\juan_\\Desktop\\background2.jpg"));
+		lblNewLabel_3.setIcon(new ImageIcon("./resource/background2.jpg"));
 		lblNewLabel_3.setBounds(0, 0, 796, 380);
 		contentPane.add(lblNewLabel_3);
 	}
