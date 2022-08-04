@@ -7,7 +7,7 @@ import Game.*;
 import GraphicApp.*;
 
 public class ControllerGame {
-	
+	/** Attributes */
 	private Player ply1;
 	private Player ply2;
 	private Board board;
@@ -19,13 +19,12 @@ public class ControllerGame {
     private boolean changeTurn = false;
 
 	
-	// Construct
+	/** Constructor */
 	public ControllerGame() {
 		
 		this.app = new GraphicApp();
 		this.board = new Board();
-		this.board.fillEmptyBoard();
-		this.turn = "X";
+		
 		this.gameStarted = false;
 		
 		JButton[] row1 = {app.getBtn00(), app.getBtn01(), app.getBtn02()};
@@ -48,11 +47,18 @@ public class ControllerGame {
 	public void newGame() {
 		
 		
+		board.prepareEmptyBoard();
+		for (int i = 0; i < buttons.length; i++) {
+			for (int j = 0; j < buttons.length; j++) {
+				buttons[i][j].setText("");
+			}
+		}
 		
 		if (validarDatos(app.getTextFieldPlayer1Name(), app.getTextFieldPlayer2Name())) {
-			this.ply1 = new Player("X", app.getTextFieldPlayer1Name().toString(), "Humano");
-			this.ply2 =  new Player("O", app.getTextFieldPlayer2Name().toString(), "CPU");
-			this.gameStarted = true;
+			ply1 = new Player("X", app.getTextFieldPlayer1Name().getText().toString(), "Humano");
+			ply2 =  new Player("O", app.getTextFieldPlayer2Name().getText().toString(), "CPU");
+			gameStarted = true;
+			turn = "X";
 		}
 		
 	}
@@ -76,14 +82,12 @@ public class ControllerGame {
 		
 		app.getBtn01().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ok");
 				makeMovement(app.getBtn01(), 0, 1);
 			}
 		});
 		
 		app.getBtn02().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("ok");
 				makeMovement(app.getBtn02(), 0, 2);
 			}
 		});
@@ -149,25 +153,25 @@ public class ControllerGame {
 					
 				if (turn.equals("X")) { 
 					
-					if(this.ply1.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) { // If the player haven't put 3 tokens in the board and the field selected is null
+					if(ply1.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) { // If the player haven't put 3 tokens in the board and the field selected is null
 						
 						btn.setText(ply1.getToken()); // The token is put in the board in the eyes of the user
 						tempBoard[column][row] = ply1.getToken(); // it's save the position in which it have been put it
 						
 						movementMade(this.ply1.getName()); // Update the movement label
-						this.ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
+						ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
 						
 						changeTurn = true; //Indicates that a token has been put
 
 						
-					}else if (this.ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
+					}else if (ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
 						
 						btn.setText(""); // The token is withdrawn in the board in the eyes of the user
 						tempBoard[column][row] = ""; // Clear the position in which it had been put it
 
 			 
 						movementMade(this.ply1.getName()); // Update the movement label
-						this.ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
+						ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
 					}
 					
 					
