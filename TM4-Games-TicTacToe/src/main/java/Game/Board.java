@@ -1,5 +1,7 @@
 package Game;
 
+import Controller.ControllerGame;
+
 public class Board {
 	
 	/** Attributes */
@@ -37,23 +39,22 @@ public class Board {
 	 * Method that cleans the fields values and sets it to ""
 	 * 
 	 */
-	public void  fillEmptyBoard() {
+	public void  prepareEmptyBoard() {
 		for (int i = 0; i < field.length; i++) {			
 			for (int j = 0; j < field.length; j++) {
 				field[i][j] = "";
 			}
-		}	
+		}
 	}
 
 	/**
-	 * Method that check if a the current player  have win
+	 * Method that check if a the current player have win
 	 * 
 	 * @param turn token associated to a player
 	 */
-	public boolean checkWin(String turn) {
-		int winningResult = 0; 
-		String rowSum= "";
+	public boolean checkWin(String turn) {	
 		
+		//If the player have placed the 3 tokens in one of the winner combinations , return true
 	    if(field[0][0].equals(turn) && field[0][1].equals(turn) && field[0][2].equals(turn) ) {
 	    	return true;
 	    }else if (field[0][0].equals(turn) && field[1][0].equals(turn) && field[2][0].equals(turn)) {
@@ -78,9 +79,7 @@ public class Board {
 	    	return true;
 
 	    }
-		
-
-		
+				
 		return false;
 	}
 	
