@@ -13,8 +13,8 @@ public class ControllerGame {
 	private Board board;
 	private String turn;
 	private boolean gameStarted;
-	private GraphicApp app = new GraphicApp();
-	private JButton[][] buttons;
+	private GraphicApp app;
+	private JButton[][] buttons = new JButton[3][3];
 	
     private boolean changeTurn = false;
 
@@ -22,7 +22,7 @@ public class ControllerGame {
 	// Construct
 	public ControllerGame() {
 		
-//		this.app = new GraphicApp();
+		this.app = new GraphicApp();
 		this.board = new Board();
 		this.board.fillEmptyBoard();
 		this.turn = "X";
@@ -31,9 +31,9 @@ public class ControllerGame {
 		JButton[] row1 = {app.getBtn00(), app.getBtn01(), app.getBtn02()};
 		JButton[] row2 = {app.getBtn10(), app.getBtn11(), app.getBtn12()};
 		JButton[] row3 = {app.getBtn20(), app.getBtn21(), app.getBtn22()};
-		this.buttons[0] = row1;
-		this.buttons[1] = row2;
-		this.buttons[2] = row3;
+		buttons[0] = row1;
+		buttons[1] = row2;
+		buttons[2] = row3;
 		
 		app.getBtnNewGame().addActionListener(new ActionListener() {
 			// Starts a new Game	
