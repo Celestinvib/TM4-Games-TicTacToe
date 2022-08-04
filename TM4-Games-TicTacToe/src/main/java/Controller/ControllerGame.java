@@ -58,6 +58,7 @@ public class ControllerGame {
 			ply1 = new Player("X", app.getTextFieldPlayer1Name().getText().toString(), "Humano");
 			ply2 =  new Player("O", app.getTextFieldPlayer2Name().getText().toString(), "CPU");
 			gameStarted = true;
+			app.getLblMovements().setText("");
 			turn = "X";
 		}
 		
@@ -172,6 +173,7 @@ public class ControllerGame {
 			 
 						movementMade(this.ply1.getName()); // Update the movement label
 						ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
+						app.getLblMovements().setText(ply1.getName()+", coge una ficha ..."); //Indicates that a token have been subtracted
 					}
 					
 					
@@ -190,7 +192,7 @@ public class ControllerGame {
 						 tempBoard[column][row] = "";
 						 btn.setText("");
 
-						 movementMade(this.ply2.getName());
+						 app.getLblMovements().setText(ply2.getName()+", coge una ficha ...");
 						 this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()-1);	
 					}
 				}
