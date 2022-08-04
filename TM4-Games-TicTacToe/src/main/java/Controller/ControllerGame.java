@@ -14,6 +14,7 @@ public class ControllerGame {
 	private String turn;
 	private boolean gameStarted;
 	private GraphicApp app = new GraphicApp();
+	private JButton[][] buttons;
 	
     private boolean changeTurn = false;
 
@@ -26,6 +27,13 @@ public class ControllerGame {
 		this.board.fillEmptyBoard();
 		this.turn = "X";
 		this.gameStarted = false;
+		
+		JButton[] row1 = {app.getBtn00(), app.getBtn01(), app.getBtn02()};
+		JButton[] row2 = {app.getBtn10(), app.getBtn11(), app.getBtn12()};
+		JButton[] row3 = {app.getBtn20(), app.getBtn21(), app.getBtn22()};
+		this.buttons[0] = row1;
+		this.buttons[1] = row2;
+		this.buttons[2] = row3;
 		
 		app.getBtnNewGame().addActionListener(new ActionListener() {
 			// Starts a new Game	
@@ -44,7 +52,8 @@ public class ControllerGame {
 		if (validarDatos(app.getTextFieldPlayer1Name(), app.getTextFieldPlayer2Name())) {
 			this.ply1 = new Player("X", app.getTextFieldPlayer1Name().toString(), "Humano");
 			this.ply2 =  new Player("O", app.getTextFieldPlayer2Name().toString(), "CPU");
-			this.gameStarted = true;}
+			this.gameStarted = true;
+		}
 		
 	}
 	
@@ -205,6 +214,27 @@ public class ControllerGame {
 					}
 					changeTurn = false;
 				}
+		}
+	}
+	
+	public void ia(Player cpu) {
+		String[][] fields = board.getField();
+		int randomColumn;
+		int randomRow;
+		
+		if(cpu.getNumPlacedTokens() < 3) {
+			do {
+				randomColumn = (int)(Math.random() * fields.length);
+				randomRow = (int)(Math.random() * fields.length);
+			} while (!fields[randomColumn][randomRow].equals(""));
+			makeMovement(this.buttons[randomColumn][randomRow], randomColumn, randomRow);
+			
+		}else {
+			do {
+				randomColumn = (int)(Math.random() * fields.length);
+				randomRow = (int)(Math.random() * fields.length);
+			} while (!fields[randomColumn][randomRow].equals(cpu.getToken()));
+			makeMovement(this.buttons[randomColumn][randomRow], randomColumn, randomRow);
 		}
 	}
 	
