@@ -19,8 +19,8 @@ public class ControllerGame {
 	public ControllerGame() {
 		
 //		this.app = new GraphicApp();
-		String[][] arr = {{"", "", ""}, {"", "", ""}, {"", "", ""}};
-		this.board = new Board(arr);
+		this.board = new Board();
+		this.board.fillEmptyBoard();
 		this.turn = "X";
 		this.gameStarted = false;
 		
@@ -37,8 +37,8 @@ public class ControllerGame {
 	public void newGame() {
 		
 		// validador
-		this.ply1 = new Player("X", app.getTextFieldPlayer1Name().toString(), "human");
-		this.ply2 =  new Player("O", app.getTextFieldPlayer1Name().toString(), "cpu");
+		this.ply1 = new Player("X", app.getTextFieldPlayer1Name().toString(), "Humano");
+		this.ply2 =  new Player("O", app.getTextFieldPlayer2Name().toString(), "CPU");
 		
 		this.gameStarted = true;
 	}
@@ -145,7 +145,6 @@ public class ControllerGame {
 						movementMade(this.ply1.getName()); // Update the movement label
 						this.ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
 						 
-						turn = "O";
 					}
 					
 					
@@ -167,12 +166,39 @@ public class ControllerGame {
 
 						 movementMade(this.ply2.getName());
 						 this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()-1);	
-
-						turn = "X";
 					}
 				}
 				
 				this.board.setField(tempBoard); // Update the real board		
+				
+//				int winningResult = 0; 
+//				String columnSum1= "";
+//				String rowSum1= "";
+//				
+//				System.out.println("A");
+//				for (int i = 0; i < tempBoard.length; i++) {	
+//					boolean sumMade = false;
+//					for (int j = 0; j < tempBoard.length; j++) {
+//						if(tempBoard[i][j] != "" && tempBoard[i][j].equals(turn)) {			
+//							columnSum1 += String.valueOf(i);
+//							rowSum1 += String.valueOf(j);			
+//							
+//							System.out.println("Column: "+columnSum1+"RowSuma: "+rowSum1);
+//							sumMade =true;
+//						}
+//						System.out.println();
+//						if(sumMade) {
+//							winningResult += Integer.parseInt(columnSum1)+Integer.parseInt(rowSum1);
+//						}
+//						System.out.print(j+"-");
+//					}
+//					System.out.println("Wining: "+winningResult);
+//				}
+//				
+//				if(winningResult == 3 || winningResult == 33 || winningResult == 39 || winningResult == 45 || winningResult == 63) {
+//					System.out.println("You won!");
+//
+//				}
 		}
 	}
 	

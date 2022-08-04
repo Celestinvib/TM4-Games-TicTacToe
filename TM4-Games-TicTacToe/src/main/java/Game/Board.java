@@ -5,15 +5,12 @@ public class Board {
 	/** Attributes */
 	private String field[][];
 	
-	private int size;
-
 	
 	/**
 	 * Constructor 
 	 */
 	public Board() {
 		this.field = new String [3][3];
-		this.size = 9;
 	}
 
 
@@ -36,21 +33,38 @@ public class Board {
 		this.field = field;
 	}
 
-
-	/**
-	 * @return the size
-	 */
-	public int getSize() {
-		return size;
+	public void  fillEmptyBoard() {
+		for (int i = 0; i < field.length; i++) {			
+			for (int j = 0; j < field.length; j++) {
+				field[i][j] = "";
+			}
+		}	
 	}
-
-
-	/**
-	 * @param size the size to set
-	 */
-	public void setSize(int size) {
-		this.size = size;
+	
+	public boolean checkWin(String turn) {
+		boolean alreadyAWinner = false;
+		int winningResult = 0; 
+		String rowSum= "";
+		
+		for (int i = 0; i < field.length; i++) {			
+			for (int j = 0; j < field.length; j++) {
+				if(field[i][j] != "" && field[i][j].equals(turn)) {			
+					rowSum += String.valueOf(i) + String.valueOf(j);
+					System.out.println(rowSum);
+				}
+				System.out.println();
+				winningResult += Integer.parseInt(rowSum);
+			}		
+		}
+		
+		if(winningResult == 3 || winningResult == 33 || winningResult == 39 || winningResult == 45 || winningResult == 63) {
+			return true;
+		}
+		
+		return alreadyAWinner;
 	}
+	
+
 	
 	
 	
