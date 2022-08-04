@@ -36,12 +36,23 @@ public class ControllerGame {
 	
 	public void newGame() {
 		
-		// validador
-		this.ply1 = new Player("X", app.getTextFieldPlayer1Name().toString(), "Humano");
-		this.ply2 =  new Player("O", app.getTextFieldPlayer2Name().toString(), "CPU");
 		
-		this.gameStarted = true;
+		
+		if (validarDatos(app.getTextFieldPlayer1Name(), app.getTextFieldPlayer2Name())) {
+			this.ply1 = new Player("X", app.getTextFieldPlayer1Name().toString(), "Humano");
+			this.ply2 =  new Player("O", app.getTextFieldPlayer2Name().toString(), "CPU");
+			this.gameStarted = true;}
+		
 	}
+	
+	public boolean validarDatos(JTextField textFieldPlayer1Name, JTextField textFieldPlayer2Name) {
+		
+		if(textFieldPlayer1Name.getText().equals("") || textFieldPlayer2Name.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "No pueden haber campos vacios", null, JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		return true;
+}
 	
 	public void buttonBoardActions() {
 		
