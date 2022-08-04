@@ -33,6 +33,10 @@ public class Board {
 		this.field = field;
 	}
 
+	/**
+	 * Method that cleans the fields values and sets it to ""
+	 * 
+	 */
 	public void  fillEmptyBoard() {
 		for (int i = 0; i < field.length; i++) {			
 			for (int j = 0; j < field.length; j++) {
@@ -40,28 +44,44 @@ public class Board {
 			}
 		}	
 	}
-	
+
+	/**
+	 * Method that check if a the current player  have win
+	 * 
+	 * @param turn token associated to a player
+	 */
 	public boolean checkWin(String turn) {
-		boolean alreadyAWinner = false;
 		int winningResult = 0; 
 		String rowSum= "";
 		
-		for (int i = 0; i < field.length; i++) {			
-			for (int j = 0; j < field.length; j++) {
-				if(field[i][j] != "" && field[i][j].equals(turn)) {			
-					rowSum += String.valueOf(i) + String.valueOf(j);
-					System.out.println(rowSum);
-				}
-				System.out.println();
-				winningResult += Integer.parseInt(rowSum);
-			}		
-		}
+	    if(field[0][0].equals(turn) && field[0][1].equals(turn) && field[0][2].equals(turn) ) {
+	    	return true;
+	    }else if (field[0][0].equals(turn) && field[1][0].equals(turn) && field[2][0].equals(turn)) {
+	    	return true;
+	
+	    }else if (field[0][1].equals(turn) && field[1][1].equals(turn) && field[2][1].equals(turn)) {
+	    	return true;
+	
+	    }else if (field[0][2].equals(turn) && field[1][2].equals(turn) && field[2][2].equals(turn)) {
+	    	return true;
+
+	    }else if (field[1][0].equals(turn) && field[1][1].equals(turn) && field[1][2].equals(turn)) {
+	    	return true;
+
+	    }else if (field[2][0].equals(turn) && field[2][1].equals(turn) && field[2][2].equals(turn)) {
+	    	return true;
+	    }
+	    else if (field[0][0].equals(turn) && field[1][1].equals(turn) && field[2][2].equals(turn)) {
+	    	return true;
+
+	    }else if (field[0][2].equals(turn) && field[1][1].equals(turn) && field[2][0].equals(turn)) {
+	    	return true;
+
+	    }
 		
-		if(winningResult == 3 || winningResult == 33 || winningResult == 39 || winningResult == 45 || winningResult == 63) {
-			return true;
-		}
+
 		
-		return alreadyAWinner;
+		return false;
 	}
 	
 
