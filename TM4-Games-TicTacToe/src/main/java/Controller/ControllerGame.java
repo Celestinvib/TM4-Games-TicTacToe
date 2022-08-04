@@ -15,6 +15,9 @@ public class ControllerGame {
 	private boolean gameStarted;
 	private GraphicApp app = new GraphicApp();
 	
+    private boolean changeTurn = false;
+
+	
 	// Construct
 	public ControllerGame() {
 		
@@ -135,7 +138,7 @@ public class ControllerGame {
 			
 			String tempBoard[][] = board.getField();
 					
-				if (this.turn == "X") { 
+				if (turn.equals("X")) { 
 					
 					if(this.ply1.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) { // If the player haven't put 3 tokens in the board and the field selected is null
 						
@@ -145,17 +148,17 @@ public class ControllerGame {
 						movementMade(this.ply1.getName()); // Update the movement label
 						this.ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
 						
-						turn = "O"; //Change the turn
-					
+						changeTurn = true; //Indicates that a token has been put
+
+						
 					}else if (this.ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
 						
 						btn.setText(""); // The token is withdrawn in the board in the eyes of the user
 						tempBoard[column][row] = ""; // Clear the position in which it had been put it
 
-						 
+			 
 						movementMade(this.ply1.getName()); // Update the movement label
 						this.ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
-						 
 					}
 					
 					
@@ -168,9 +171,8 @@ public class ControllerGame {
 						
 						movementMade(this.ply2.getName());
 						this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()+1);
-						
-						turn = "X";
-						
+						changeTurn = true;
+												
 					}else if (this.ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
 						 tempBoard[column][row] = "";
 						 btn.setText("");
@@ -180,36 +182,29 @@ public class ControllerGame {
 					}
 				}
 				
-				this.board.setField(tempBoard); // Update the real board		
+				board.setField(tempBoard); // Update the real board	
 				
-//				int winningResult = 0; 
-//				String columnSum1= "";
-//				String rowSum1= "";
-//				
-//				System.out.println("A");
-//				for (int i = 0; i < tempBoard.length; i++) {	
-//					boolean sumMade = false;
-//					for (int j = 0; j < tempBoard.length; j++) {
-//						if(tempBoard[i][j] != "" && tempBoard[i][j].equals(turn)) {			
-//							columnSum1 += String.valueOf(i);
-//							rowSum1 += String.valueOf(j);			
-//							
-//							System.out.println("Column: "+columnSum1+"RowSuma: "+rowSum1);
-//							sumMade =true;
-//						}
-//						System.out.println();
-//						if(sumMade) {
-//							winningResult += Integer.parseInt(columnSum1)+Integer.parseInt(rowSum1);
-//						}
-//						System.out.print(j+"-");
-//					}
-//					System.out.println("Wining: "+winningResult);
-//				}
-//				
-//				if(winningResult == 3 || winningResult == 33 || winningResult == 39 || winningResult == 45 || winningResult == 63) {
-//					System.out.println("You won!");
-//
-//				}
+				
+				if(board.checkWin(turn)) { //Check if the current player have win the game 
+					
+					if(turn.equals("X")) {
+						JOptionPane.showMessageDialog(null, ply1.getName() +" ha ganado!");
+	
+					}else {
+						JOptionPane.showMessageDialog(null, ply2.getName() +" ha ganado!");					
+					}
+					
+					gameStarted = false; 
+				}
+				
+				if(changeTurn) {   //Change the turn of the player if a token have been made
+					if(turn.equals("X")) {
+						turn = "O";
+					}else {
+						turn = "X";
+					}
+					changeTurn = false;
+				}
 		}
 	}
 	
