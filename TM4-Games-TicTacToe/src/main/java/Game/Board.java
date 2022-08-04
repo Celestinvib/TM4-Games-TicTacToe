@@ -48,7 +48,7 @@ public class Board {
 	}
 
 	/**
-	 * Method that check if a the current player have win
+	 * Method that check if a the current player has won
 	 * 
 	 * @param turn token associated to a player
 	 */
