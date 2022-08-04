@@ -1,6 +1,11 @@
 package Controller;
 
 import java.awt.event.*;
+import java.util.Enumeration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import javax.swing.*;
 
 import Game.*;
@@ -36,7 +41,11 @@ public class ControllerGame {
 		
 		app.getBtnNewGame().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				newGame();	// Starts a new Game	
+				try {
+					newGame(); // Starts a new Game
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}		
 			}
 		});
 		
@@ -45,9 +54,10 @@ public class ControllerGame {
 	
 	/**
 	 * Method that starts a new Game 
+	 * @throws InterruptedException 
 	 * 
 	 */
-	public void newGame() {
+	public void newGame() throws InterruptedException {
 		int newMatch = 0;
 		
 		if(gameStarted) { //Check if a game has started , if it has ask the user if he really want to start a new game 
@@ -64,18 +74,54 @@ public class ControllerGame {
 				}
 			}
 			
+			// Activates the validator for the name fields
 			if (checkNameFields(app.getTextFieldPlayer1Name(), app.getTextFieldPlayer2Name())) {
-				ply1 = new Player("X", app.getTextFieldPlayer1Name().getText().toString(), "Humano"); //<--------- Set the type of that the user have entered in the radiobutton!!!
-				ply2 =  new Player("O", app.getTextFieldPlayer2Name().getText().toString(), "CPU");
+				
+				// Creating player 1
+				for (Enumeration<AbstractButton> radioButtons = app.getButtonGroup().getElements(); radioButtons.hasMoreElements();) {
+		            AbstractButton radioButton = radioButtons.nextElement();
+
+		            if (radioButton.isSelected()) {
+		            	ply1 = new Player("X", app.getTextFieldPlayer1Name().getText().toString(), radioButton.getText());
+		            }
+		        }
+				
+				// Creating player 2
+				for (Enumeration<AbstractButton> radioButtons_1 = app.getButtonGroup().getElements(); radioButtons_1.hasMoreElements();) {
+		            AbstractButton radioButton_1 = radioButtons_1.nextElement();
+
+		            if (radioButton_1.isSelected()) {
+		            	ply2 =  new Player("O", app.getTextFieldPlayer2Name().getText().toString(), radioButton_1.getText());
+		            }
+		        }
 				gameStarted = true;
 				app.getLblMovements().setText("");
 				turn = "X";
+				
+				if(ply1.getType().equals("CPU") && ply2.getType().equals("CPU")) {
+					while(gameStarted) {
+						System.out.println("ok");
+						if(turn.equals("X")) {
+							ia(ply1);
+						}else {
+							ia(ply2);
+						}
+					}
+				}else if(ply1.getType().equals("CPU")) {
+                    ia(ply1);
+                }
 			}
 		}
 		
 	}
 	
-	
+	/**
+	 * Validates if the fields to introduce the names are empty or not
+	 * 
+	 * @param textFieldPlayer1Name
+	 * @param textFieldPlayer2Name
+	 * @return
+	 */
 	public boolean checkNameFields(JTextField textFieldPlayer1Name, JTextField textFieldPlayer2Name) {
 		
 		if(textFieldPlayer1Name.getText().equals("") || textFieldPlayer2Name.getText().equals("")) {
@@ -171,7 +217,10 @@ public class ControllerGame {
 						ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
 						
 						changeTurn = true; //Indicates that a token has been put
-
+						
+						if(ply2.getType().equals("CPU")) {
+                            ia(ply2);
+                        }
 						
 					}else if (ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
 						
@@ -194,6 +243,10 @@ public class ControllerGame {
 						app.getLblMovements().setText(ply2.getName()+", coloca ficha ...");
 						this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()+1);
 						changeTurn = true;
+						
+						if(ply1.getType().equals("CPU")) {
+                            ia(ply1);
+                        }
 												
 					}else if (this.ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
 						 tempBoard[column][row] = "";

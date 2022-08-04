@@ -354,6 +354,20 @@ public class GraphicApp extends JFrame{
 	public JButton getBtn22() {
 		return btn22;
 	}
+	
+	/**
+	 * @return the buttonGroup
+	 */
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+
+	/**
+	 * @return the buttonGroup_1
+	 */
+	public ButtonGroup getButtonGroup_1() {
+		return buttonGroup_1;
+	}
 
 	/**
 	 * @param btn22 the btn22 to set
