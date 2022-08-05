@@ -99,6 +99,8 @@ public class GraphicApp extends JFrame{
 		
 		/*Creation, definition of dimensions and added to the panel of the labels*/		
 		lblMovements = new JLabel("");
+		lblMovements.setDisabledIcon(null);
+		lblMovements.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblMovements.setBackground(new Color(255, 255, 255));
 		lblMovements.setForeground(SystemColor.textText);
 		lblMovements.setBounds(65, 409, 363, 45);
@@ -184,6 +186,18 @@ public class GraphicApp extends JFrame{
 		lblNewLabel_3.setIcon(new ImageIcon("./resource/background2.jpg"));
 		lblNewLabel_3.setBounds(0, 0, 800, 530);
 		contentPane.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_4_1 = new JLabel("Utiliza ficha O");
+		lblNewLabel_4_1.setForeground(SystemColor.text);
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_4_1.setBounds(685, 264, 89, 14);
+		contentPane.add(lblNewLabel_4_1);
+		
+		JLabel lblNewLabel_4 = new JLabel("Utiliza ficha X");
+		lblNewLabel_4.setForeground(SystemColor.text);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_4.setBounds(687, 88, 75, 14);
+		contentPane.add(lblNewLabel_4);
 	}
 
 	// Getters and Setters
