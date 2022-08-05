@@ -92,7 +92,7 @@ public class ControllerGame {
 		        }
 				
 				// Creating player 2
-				for (Enumeration<AbstractButton> radioButtons_1 = app.getButtonGroup().getElements(); radioButtons_1.hasMoreElements();) {
+				for (Enumeration<AbstractButton> radioButtons_1 = app.getButtonGroup_1().getElements(); radioButtons_1.hasMoreElements();) {
 		            AbstractButton radioButton_1 = radioButtons_1.nextElement();
 
 		            if (radioButton_1.isSelected()) {
@@ -212,7 +212,7 @@ public class ControllerGame {
 	public void  makeMovement(JButton btn, int column , int row) {	
 		
 		if(gameStarted) {
-			
+
 			String tempBoard[][] = board.getField();
 					
 				if (turn.equals("X")) { 
@@ -223,10 +223,11 @@ public class ControllerGame {
 						tempBoard[column][row] = ply1.getToken(); // it's save the position in which it has been put it
 						
 						app.getLblMovements().setText(ply1.getName()+", coloca ficha ..."); // Update the movement label
-						ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
+						ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
 						
 						changeTurn = true; //Indicates that a token has been put
 						
+//Not Working -------------------->							
 //						if(ply2.getType().equals("CPU")) {
 //                            ia(ply2);
 //                        }
@@ -237,7 +238,7 @@ public class ControllerGame {
 						tempBoard[column][row] = ""; // Clear the position in which it had been put it
 
 			 
-						ply1.setNumPlacedTokens(this.ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
+						ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
 						app.getLblMovements().setText(ply1.getName()+", coge una ficha ..."); //Indicates that a token has been subtracted
 					}
 					
@@ -245,24 +246,24 @@ public class ControllerGame {
 					
 				}else {
 					
-					if(this.ply2.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) {
+					if(ply2.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) {
 						btn.setText(ply2.getToken());
 						tempBoard[column][row] = ply2.getToken();
 						
 						app.getLblMovements().setText(ply2.getName()+", coloca ficha ...");
-						this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()+1);
+						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()+1);
 						changeTurn = true;
-						
+//Not Working -------------------->								
 //						if(ply1.getType().equals("CPU")) {
 //                            ia(ply1);
 //                        }
 												
-					}else if (this.ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
+					}else if (ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
 						 tempBoard[column][row] = "";
 						 btn.setText("");
 
 						 app.getLblMovements().setText(ply2.getName()+", coge una ficha ...");
-						 this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()-1);	
+						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()-1);	
 					}
 				}
 				
@@ -294,7 +295,7 @@ public class ControllerGame {
 				}
 		}
 	}
-	
+		
 	/**
 	 * Method that decides which token will place or change of position for the players that are CPUs
 	 * 
@@ -321,6 +322,7 @@ public class ControllerGame {
 			} while (!fields[randomColumn][randomRow].equals(cpu.getToken()));
 			makeMovement(this.buttons[randomColumn][randomRow], randomColumn, randomRow);
 		}
+		
 	}
 	
 }
