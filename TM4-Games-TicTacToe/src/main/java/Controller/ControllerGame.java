@@ -21,6 +21,9 @@ public class ControllerGame {
 	private GraphicApp app;
 	private JButton[][] buttons = new JButton[3][3];
 	
+	private int tokenPickedColumn = -1;
+	private int tokenPickedRow = -1;
+	
     private boolean changeTurn = false;
 
 	
@@ -211,6 +214,8 @@ public class ControllerGame {
 	 */
 	public void  makeMovement(JButton btn, int column , int row) {	
 		
+
+
 		if(gameStarted) {
 
 			String tempBoard[][] = board.getField();
@@ -218,21 +223,33 @@ public class ControllerGame {
 				if (turn.equals("X")) { 
 					
 					if(ply1.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) { // If the player haven't put 3 tokens in the board and the field selected is null
+						 
+						//If the a token have been picked in the previous movement and the move tries to put the token in the same place
+						if(tokenPickedColumn == column && tokenPickedRow == row) { 
+							if(ply1.getType().equals("Humano")) { 
+								JOptionPane.showMessageDialog(null, "No se puede colocar la ficha en la posición donde se ha recogido"); 
+							}
+							
+						}else {							
+							btn.setText(ply1.getToken()); // The token is put in the board in the eyes of the user
+							tempBoard[column][row] = ply1.getToken(); // it's save the position in which it has been put it
+							
+							app.getLblMovements().setText(ply1.getName()+", coloca ficha ..."); // Update the movement label
+							ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
+							
+							changeTurn = true; //Indicates that a token has been put
+							
+							//Reset the values of the of token to "null" because a correct movement has been made
+							tokenPickedColumn = -1; 
+							tokenPickedRow = -1;
+						}
 						
-						btn.setText(ply1.getToken()); // The token is put in the board in the eyes of the user
-						tempBoard[column][row] = ply1.getToken(); // it's save the position in which it has been put it
-						
-						app.getLblMovements().setText(ply1.getName()+", coloca ficha ..."); // Update the movement label
-						ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
-						
-						changeTurn = true; //Indicates that a token has been put
-						
-//Not Working -------------------->							
-//						if(ply2.getType().equals("CPU")) {
-//                            ia(ply2);
-//                        }
 						
 					}else if (ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
+						
+						//Get the column and row of the token that has been withdrawn
+						tokenPickedColumn = column;
+						tokenPickedRow = row;
 						
 						btn.setText(""); // The token is withdrawn in the board in the eyes of the user
 						tempBoard[column][row] = ""; // Clear the position in which it had been put it
@@ -247,23 +264,36 @@ public class ControllerGame {
 				}else {
 					
 					if(ply2.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) {
+						
+						if(tokenPickedColumn == column && tokenPickedRow == row) {
+							if(ply2.getType().equals("Humano")) {
+								JOptionPane.showMessageDialog(null, "No se puede colocar la ficha en la posición donde se ha recogido");
+							}
+
+							
+						}else {	
+							
 						btn.setText(ply2.getToken());
 						tempBoard[column][row] = ply2.getToken();
 						
 						app.getLblMovements().setText(ply2.getName()+", coloca ficha ...");
 						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()+1);
 						changeTurn = true;
-//Not Working -------------------->								
-//						if(ply1.getType().equals("CPU")) {
-//                            ia(ply1);
-//                        }
+						
+						tokenPickedColumn = -1;
+						tokenPickedRow = -1;
+						}
+
 												
 					}else if (ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
-						 tempBoard[column][row] = "";
+						tokenPickedColumn = column;
+						tokenPickedRow = row;
+
+						tempBoard[column][row] = "";
 						 btn.setText("");
 
-						 app.getLblMovements().setText(ply2.getName()+", coge una ficha ...");
-						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()-1);	
+						app.getLblMovements().setText(ply2.getName()+", coge una ficha ...");
+						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()-1);
 					}
 				}
 				
@@ -280,7 +310,7 @@ public class ControllerGame {
 						}else {
 							JOptionPane.showMessageDialog(null, ply2.getName() +" ha ganado!");					
 						}
-						
+
 						gameStarted = false; 
 					}
 				}
@@ -293,6 +323,16 @@ public class ControllerGame {
 					}
 					changeTurn = false;
 				}
+				
+				if(turn.equals("X")) {
+                    if(ply1.getType().equals("CPU")) {
+                        ia(ply1);
+                    }
+                }else {
+                    if(ply2.getType().equals("CPU")) {
+                        ia(ply2);
+                    }
+                }
 		}
 	}
 		
@@ -320,9 +360,17 @@ public class ControllerGame {
 				randomColumn = (int)(Math.random() * fields.length);
 				randomRow = (int)(Math.random() * fields.length);
 			} while (!fields[randomColumn][randomRow].equals(cpu.getToken()));
-			makeMovement(this.buttons[randomColumn][randomRow], randomColumn, randomRow);
+
+//			try {
+//				  Thread.sleep(1000);
+					makeMovement(this.buttons[randomColumn][randomRow], randomColumn, randomRow);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//					}
 		}
 		
 	}
+	
+	
 	
 }
