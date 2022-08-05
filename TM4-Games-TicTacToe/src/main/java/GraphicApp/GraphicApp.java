@@ -37,7 +37,7 @@ public class GraphicApp extends JFrame{
 		
 		/* Definition of the window */
 		setTitle("TRES EN RAYA"); // PopUp window title
-		setBounds(700, 200, 812, 419); // X Y coordinates of the application and its height and length
+		setBounds(700, 200, 800, 530); // X Y coordinates of the application and its height and length
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // Close the window  when the operation is close
 		setVisible(true); // It allows the window to be visible
 		
@@ -48,134 +48,141 @@ public class GraphicApp extends JFrame{
 		
 		/* Creation, definition of dimensions and added to the panel of the buttons */		
 		btn00 = new JButton("");
-		btn00.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn00.setBounds(24, 22, 89, 85);
+		btn00.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn00.setBounds(65, 43, 105, 105);
 		contentPane.add(btn00);
 		
 		btn01 = new JButton("");
-		btn01.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn01.setBounds(124, 22, 89, 85);
+		btn01.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn01.setBounds(196, 43, 105, 105);
 		contentPane.add(btn01);
 		
 		btn02 = new JButton("");
-		btn02.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn02.setBounds(224, 22, 89, 85);
+		btn02.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn02.setBounds(323, 43, 105, 105);
 		contentPane.add(btn02);
 		
 		btn10 = new JButton("");
-		btn10.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn10.setBounds(24, 118, 89, 85);
+		btn10.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn10.setBounds(65, 159, 105, 105);
 		contentPane.add(btn10);
 		
 		btn11 = new JButton("");
-		btn11.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn11.setBounds(124, 118, 89, 85);
+		btn11.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn11.setBounds(196, 159, 105, 105);
 		contentPane.add(btn11);
 		
 		btn12 = new JButton("");
-		btn12.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn12.setBounds(224, 118, 89, 85);
+		btn12.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn12.setBounds(323, 159, 105, 105);
 		contentPane.add(btn12);
 		
 		btn20 = new JButton("");
-		btn20.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn20.setBounds(24, 214, 89, 85);
+		btn20.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn20.setBounds(65, 277, 105, 105);
 		contentPane.add(btn20);
 		
 		btn21 = new JButton("");
-		btn21.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn21.setBounds(124, 214, 89, 85);
+		btn21.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn21.setBounds(196, 277, 105, 105);
 		contentPane.add(btn21);
 		
 		btn22 = new JButton("");
-		btn22.setFont(new Font("Tahoma", Font.PLAIN, 38));
-		btn22.setBounds(224, 214, 89, 85);
+		btn22.setFont(new Font("Tahoma", Font.BOLD, 45));
+		btn22.setBounds(323, 277, 105, 105);
 		contentPane.add(btn22);
 		
 		btnNewGame = new JButton("PLAY");
 		btnNewGame.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btnNewGame.setBounds(582, 286, 117, 59);
+		btnNewGame.setBounds(578, 395, 117, 59);
 		contentPane.add(btnNewGame);
 		
 		/*Creation, definition of dimensions and added to the panel of the labels*/		
 		lblMovements = new JLabel("");
 		lblMovements.setBackground(new Color(255, 255, 255));
 		lblMovements.setForeground(SystemColor.textText);
-		lblMovements.setBounds(24, 310, 289, 23);
+		lblMovements.setBounds(65, 409, 363, 45);
 		contentPane.add(lblMovements);
 		
 		JLabel lbl1 = new JLabel("Jugador 1");
-		lbl1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lbl1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl1.setForeground(Color.WHITE);
-		lbl1.setBounds(507, 27, 123, 23);
+		lbl1.setBounds(586, 36, 123, 23);
 		contentPane.add(lbl1);
 		
 		JLabel lblNewLabel = new JLabel("Nombre: ");
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setBounds(507, 61, 61, 14);
+		lblNewLabel.setBounds(507, 114, 61, 14);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Tipo:");
 		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setBounds(507, 103, 52, 14);
+		lblNewLabel_1.setBounds(507, 156, 52, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nombre: ");
 		lblNewLabel_2.setForeground(SystemColor.text);
-		lblNewLabel_2.setBounds(507, 189, 61, 14);
+		lblNewLabel_2.setBounds(507, 292, 61, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lbl2 = new JLabel("Jugador 2");
 		lbl2.setForeground(SystemColor.text);
-		lbl2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lbl2.setBounds(507, 158, 105, 23);
+		lbl2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl2.setBounds(594, 214, 105, 23);
 		contentPane.add(lbl2);
 		
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Tipo:");
 		lblNewLabel_1_1.setForeground(SystemColor.text);
-		lblNewLabel_1_1.setBounds(507, 231, 46, 14);
+		lblNewLabel_1_1.setBounds(507, 334, 46, 14);
 		contentPane.add(lblNewLabel_1_1);
 		
 
 		/* Creation, definition of dimensions and added to the panel of the radio buttons */			
 		rdbtnPlayer1HumanType = new JRadioButton("Humano");
 		buttonGroup.add(rdbtnPlayer1HumanType);
-		rdbtnPlayer1HumanType.setForeground(SystemColor.desktop);
+		rdbtnPlayer1HumanType.setForeground(SystemColor.text);
 		rdbtnPlayer1HumanType.setSelected(true);
-		rdbtnPlayer1HumanType.setBounds(578, 99, 89, 23);
+		rdbtnPlayer1HumanType.setBounds(578, 152, 89, 23);
+		rdbtnPlayer1HumanType.setOpaque(false);
 		contentPane.add(rdbtnPlayer1HumanType);
 		
 		JRadioButton rdbtnPlayer1CPUType = new JRadioButton("CPU");
+		rdbtnPlayer1CPUType.setForeground(SystemColor.text);
 		buttonGroup.add(rdbtnPlayer1CPUType);
-		rdbtnPlayer1CPUType.setBounds(673, 99, 89, 23);
+		rdbtnPlayer1CPUType.setBounds(673, 152, 89, 23);
+		rdbtnPlayer1CPUType.setOpaque(false);
 		contentPane.add(rdbtnPlayer1CPUType);
 	
 		JRadioButton rdbtnPlayer2HumanType = new JRadioButton("Humano");
+		rdbtnPlayer2HumanType.setForeground(SystemColor.text);
 		buttonGroup_1.add(rdbtnPlayer2HumanType);
-		rdbtnPlayer2HumanType.setBounds(578, 227, 89, 23);
+		rdbtnPlayer2HumanType.setBounds(578, 330, 89, 23);
+		rdbtnPlayer2HumanType.setOpaque(false);
 		contentPane.add(rdbtnPlayer2HumanType);
 		
 		JRadioButton rdbtnPlayer2CPUType = new JRadioButton("CPU");
+		rdbtnPlayer2CPUType.setForeground(SystemColor.text);
 		buttonGroup_1.add(rdbtnPlayer2CPUType);
 		rdbtnPlayer2CPUType.setSelected(true);
-		rdbtnPlayer2CPUType.setBounds(673, 227, 89, 23);
+		rdbtnPlayer2CPUType.setBounds(673, 330, 89, 23);
+		rdbtnPlayer2CPUType.setOpaque(false);
 		contentPane.add(rdbtnPlayer2CPUType);
 		
 		/* Creation, definition of dimensions and added to the panel of the radio textfields */		
 		textFieldPlayer1Name = new JTextField();
-		textFieldPlayer1Name.setBounds(578, 58, 184, 20);
+		textFieldPlayer1Name.setBounds(578, 111, 184, 20);
 		contentPane.add(textFieldPlayer1Name);
 		textFieldPlayer1Name.setColumns(10);
 		
 		textFieldPlayer2Name = new JTextField();
 		textFieldPlayer2Name.setColumns(10);
-		textFieldPlayer2Name.setBounds(578, 186, 184, 20);
+		textFieldPlayer2Name.setBounds(578, 289, 184, 20);
 		contentPane.add(textFieldPlayer2Name);
 		
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setIcon(new ImageIcon("./resource/background2.jpg"));
-		lblNewLabel_3.setBounds(0, 0, 796, 380);
+		lblNewLabel_3.setBounds(0, 0, 800, 530);
 		contentPane.add(lblNewLabel_3);
 	}
 
