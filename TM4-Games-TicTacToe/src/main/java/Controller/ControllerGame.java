@@ -39,6 +39,10 @@ public class ControllerGame {
 		buttons[1] = row2;
 		buttons[2] = row3;
 		
+		// Sets by default names for the players at the begining
+		app.getTextFieldPlayer1Name().setText("Jugador 1");
+		app.getTextFieldPlayer2Name().setText("Jugador 2");
+		
 		app.getBtnNewGame().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -49,6 +53,7 @@ public class ControllerGame {
 			}
 		});
 		
+		// Apply actions to the buttons
 		buttonBoardActions();
 	}
 	
@@ -100,7 +105,6 @@ public class ControllerGame {
 				
 				if(ply1.getType().equals("CPU") && ply2.getType().equals("CPU")) {
 					while(gameStarted) {
-						System.out.println("ok");
 						if(turn.equals("X")) {
 							ia(ply1);
 						}else {
@@ -116,7 +120,7 @@ public class ControllerGame {
 	}
 	
 	/**
-	 * Validates if the fields to introduce the names are empty or not
+	 * Validates if the fields to introduce the names are empty or not and applies by default names if needed
 	 * 
 	 * @param textFieldPlayer1Name
 	 * @param textFieldPlayer2Name
@@ -125,8 +129,13 @@ public class ControllerGame {
 	public boolean checkNameFields(JTextField textFieldPlayer1Name, JTextField textFieldPlayer2Name) {
 		
 		if(textFieldPlayer1Name.getText().equals("") || textFieldPlayer2Name.getText().equals("")) {
-			JOptionPane.showMessageDialog(null, "No pueden haber campos vacios", null, JOptionPane.ERROR_MESSAGE);
-			return false;
+			
+			if(textFieldPlayer1Name.getText().equals("")) {
+				app.getTextFieldPlayer1Name().setText("Jugador 1");
+			}
+			if(textFieldPlayer2Name.getText().equals("")) {
+				app.getTextFieldPlayer2Name().setText("Jugador 2");
+			}
 		}
 		return true;
 }
@@ -218,9 +227,9 @@ public class ControllerGame {
 						
 						changeTurn = true; //Indicates that a token has been put
 						
-						if(ply2.getType().equals("CPU")) {
-                            ia(ply2);
-                        }
+//						if(ply2.getType().equals("CPU")) {
+//                            ia(ply2);
+//                        }
 						
 					}else if (ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
 						
@@ -244,9 +253,9 @@ public class ControllerGame {
 						this.ply2.setNumPlacedTokens(this.ply2.getNumPlacedTokens()+1);
 						changeTurn = true;
 						
-						if(ply1.getType().equals("CPU")) {
-                            ia(ply1);
-                        }
+//						if(ply1.getType().equals("CPU")) {
+//                            ia(ply1);
+//                        }
 												
 					}else if (this.ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
 						 tempBoard[column][row] = "";
@@ -286,12 +295,18 @@ public class ControllerGame {
 		}
 	}
 	
+	/**
+	 * Method that decides which token will place or change of position for the players that are CPUs
+	 * 
+	 * @param cpu
+	 */
 	public void ia(Player cpu) {
 		String[][] fields = board.getField();
 		int randomColumn;
 		int randomRow;
 		
 		if(cpu.getNumPlacedTokens() < 3) {
+			// Searches for a random empty place to place the token
 			do {
 				randomColumn = (int)(Math.random() * fields.length);
 				randomRow = (int)(Math.random() * fields.length);
@@ -299,6 +314,7 @@ public class ControllerGame {
 			makeMovement(this.buttons[randomColumn][randomRow], randomColumn, randomRow);
 			
 		}else {
+			// If the 3 tokes have already been placed, here will search to take off randomly one of the 3 tokens
 			do {
 				randomColumn = (int)(Math.random() * fields.length);
 				randomRow = (int)(Math.random() * fields.length);
