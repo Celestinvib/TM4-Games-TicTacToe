@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.Component;
 import java.awt.event.*;
 import java.util.Enumeration;
 import java.util.concurrent.Executors;
@@ -106,7 +107,7 @@ public class ControllerGame {
 				app.getLblMovements().setText("");
 				turn = "X";
 				
-				if(ply1.getType().equals("CPU") && ply2.getType().equals("CPU")) {
+				/*if(ply1.getType().equals("CPU") && ply2.getType().equals("CPU")) {
 					while(gameStarted) {
 						if(turn.equals("X")) {
 							ia(ply1);
@@ -114,7 +115,7 @@ public class ControllerGame {
 							ia(ply2);
 						}
 					}
-				}else if(ply1.getType().equals("CPU")) {
+				}else */if(ply1.getType().equals("CPU")) {
                     ia(ply1);
                 }
 			}
@@ -220,119 +221,124 @@ public class ControllerGame {
 
 			String tempBoard[][] = board.getField();
 					
-				if (turn.equals("X")) { 
-					
-					if(ply1.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) { // If the player haven't put 3 tokens in the board and the field selected is null
-						 
-						//If the a token have been picked in the previous movement and the move tries to put the token in the same place
-						if(tokenPickedColumn == column && tokenPickedRow == row) { 
-							if(ply1.getType().equals("Humano")) { 
-								JOptionPane.showMessageDialog(null, "No se puede colocar la ficha en la posición donde se ha recogido"); 
-							}
-							
-						}else {							
-							btn.setText(ply1.getToken()); // The token is put in the board in the eyes of the user
-							tempBoard[column][row] = ply1.getToken(); // it's save the position in which it has been put it
-							
-							app.getLblMovements().setText(ply1.getName()+", coloca ficha ..."); // Update the movement label
-							ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
-							
-							changeTurn = true; //Indicates that a token has been put
-							
-							//Reset the values of the of token to "null" because a correct movement has been made
-							tokenPickedColumn = -1; 
-							tokenPickedRow = -1;
+			if (turn.equals("X")) { 
+				
+				if(ply1.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) { // If the player haven't put 3 tokens in the board and the field selected is null
+					 
+					//If the a token have been picked in the previous movement and the move tries to put the token in the same place
+					if(tokenPickedColumn == column && tokenPickedRow == row) { 
+						if(ply1.getType().equals("Humano")) { 
+							JOptionPane.showMessageDialog(null, "No se puede colocar la ficha en la posición donde se ha recogido"); 
 						}
 						
+					}else {							
+						btn.setText(ply1.getToken()); // The token is put in the board in the eyes of the user
+						tempBoard[column][row] = ply1.getToken(); // it's save the position in which it has been put it
 						
-					}else if (ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
+						app.getLblMovements().setText(ply1.getName()+", coloca ficha ..."); // Update the movement label
+						ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()+1); // Add a token to the user token counter
 						
-						//Get the column and row of the token that has been withdrawn
-						tokenPickedColumn = column;
-						tokenPickedRow = row;
+						changeTurn = true; //Indicates that a token has been put
 						
-						btn.setText(""); // The token is withdrawn in the board in the eyes of the user
-						tempBoard[column][row] = ""; // Clear the position in which it had been put it
-
-			 
-						ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
-						app.getLblMovements().setText(ply1.getName()+", coge una ficha ..."); //Indicates that a token has been subtracted
-					}
-					
-					
-					
-				}else {
-					
-					if(ply2.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) {
-						
-						if(tokenPickedColumn == column && tokenPickedRow == row) {
-							if(ply2.getType().equals("Humano")) {
-								JOptionPane.showMessageDialog(null, "No se puede colocar la ficha en la posición donde se ha recogido");
-							}
-
-							
-						}else {	
-							
-						btn.setText(ply2.getToken());
-						tempBoard[column][row] = ply2.getToken();
-						
-						app.getLblMovements().setText(ply2.getName()+", coloca ficha ...");
-						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()+1);
-						changeTurn = true;
-						
-						tokenPickedColumn = -1;
+						//Reset the values of the of token to "null" because a correct movement has been made
+						tokenPickedColumn = -1; 
 						tokenPickedRow = -1;
-						}
-
-												
-					}else if (ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
-						tokenPickedColumn = column;
-						tokenPickedRow = row;
-
-						tempBoard[column][row] = "";
-						 btn.setText("");
-
-						app.getLblMovements().setText(ply2.getName()+", coge una ficha ...");
-						ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()-1);
 					}
-				}
-				
-				board.setField(tempBoard); // Update the real board	
-				 
-				
-				if(ply1.getNumPlacedTokens() == 3 || ply2.getNumPlacedTokens() == 3) { //If some player have 3 tokens place in the board
 					
-					if(board.checkWin(turn)) { //Check if the current player have won the game 
-						
-						if(turn.equals("X")) {
-							JOptionPane.showMessageDialog(null, ply1.getName() +" ha ganado!");
-		
-						}else {
-							JOptionPane.showMessageDialog(null, ply2.getName() +" ha ganado!");					
+					
+				}else if (ply1.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "X") { // If the player have put 3 tokens in the board and the field selected is one of his tokens
+					
+					//Get the column and row of the token that has been withdrawn
+					tokenPickedColumn = column;
+					tokenPickedRow = row;
+					
+					btn.setText(""); // The token is withdrawn in the board in the eyes of the user
+					tempBoard[column][row] = ""; // Clear the position in which it had been put it
+
+		 
+					ply1.setNumPlacedTokens(ply1.getNumPlacedTokens()-1); // Subtract 1 of the token counter
+					app.getLblMovements().setText(ply1.getName()+", coge una ficha ..."); //Indicates that a token has been subtracted
+				}
+				
+				
+				
+			}else {
+				
+				if(ply2.getNumPlacedTokens() < 3 && tempBoard[column][row].equals("")) {
+					
+					if(tokenPickedColumn == column && tokenPickedRow == row) {
+						if(ply2.getType().equals("Humano")) {
+							JOptionPane.showMessageDialog(null, "No se puede colocar la ficha en la posición donde se ha recogido");
 						}
 
-						gameStarted = false; 
+						
+					}else {	
+						
+					btn.setText(ply2.getToken());
+					tempBoard[column][row] = ply2.getToken();
+					
+					app.getLblMovements().setText(ply2.getName()+", coloca ficha ...");
+					ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()+1);
+					changeTurn = true;
+					
+					tokenPickedColumn = -1;
+					tokenPickedRow = -1;
 					}
+
+											
+				}else if (ply2.getNumPlacedTokens() >= 3 && tempBoard[column][row] == "O") {
+					tokenPickedColumn = column;
+					tokenPickedRow = row;
+
+					tempBoard[column][row] = "";
+					 btn.setText("");
+
+					app.getLblMovements().setText(ply2.getName()+", coge una ficha ...");
+					ply2.setNumPlacedTokens(ply2.getNumPlacedTokens()-1);
 				}
+			}
+			
+			board.setField(tempBoard); // Update the real board	
+			 
+			
+			if(ply1.getNumPlacedTokens() == 3 || ply2.getNumPlacedTokens() == 3) { //If some player have 3 tokens place in the board
 				
-				if(changeTurn) {   //Change the turn of the player if a token have been made
+				if(board.checkWin(turn)) { //Check if the current player have won the game 
+					
 					if(turn.equals("X")) {
-						turn = "O";
+						JOptionPane.showMessageDialog(null, ply1.getName() +" ha ganado!");
+	
 					}else {
-						turn = "X";
+						JOptionPane.showMessageDialog(null, ply2.getName() +" ha ganado!");					
 					}
-					changeTurn = false;
+
+					gameStarted = false; 
 				}
-				
+			}
+			
+			if(changeTurn) {   //Change the turn of the player if a token have been made
 				if(turn.equals("X")) {
-                    if(ply1.getType().equals("CPU")) {
-                        ia(ply1);
-                    }
-                }else {
-                    if(ply2.getType().equals("CPU")) {
-                        ia(ply2);
-                    }
-                }
+					turn = "O";
+				}else {
+					turn = "X";
+				}
+				changeTurn = false;
+			}
+			Timer timer = new Timer(200, new ActionListener(){
+				public void actionPerformed( ActionEvent e ){
+					if(turn.equals("X")) {
+	                    if(ply1.getType().equals("CPU")) {
+	                        ia(ply1);
+	                    }
+	                }else {
+	                    if(ply2.getType().equals("CPU")) {
+	                        ia(ply2);
+	                    }
+	                }
+				}
+			});
+			timer.setRepeats(false);
+			timer.start();
 		}
 	}
 		
